@@ -1,7 +1,7 @@
 // TIB OS PWA Service Worker
 // 版本控制：更新此版本号会触发新缓存
-const CACHE_NAME = 'tib-os-v1';
-const RUNTIME_CACHE = 'tib-os-runtime-v1';
+const CACHE_NAME = 'tib-os-v2';
+const RUNTIME_CACHE = 'tib-os-runtime-v2';
 
 // 需要预缓存的核心资源
 const PRECACHE_ASSETS = [
