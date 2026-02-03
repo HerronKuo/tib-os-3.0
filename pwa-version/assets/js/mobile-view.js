@@ -103,6 +103,7 @@ function renderMobileHome() {
     const hasSeenInstallGuide = window.TIBApp.loadFromLocalStorage('install_guide_seen', false);
 
     mobileContainer.innerHTML = `
+        ${!hasSeenInstallGuide ? `
         <!-- Header -->
         <header class="sticky top-0 bg-paper border-b-2 border-dashed border-slate-200 z-50 px-4 py-3">
             <div class="flex items-center justify-between">
@@ -110,15 +111,14 @@ function renderMobileHome() {
                     <span class="text-sm bg-brand-600 text-white px-2 py-0.5 rounded">PWA</span>
                     TIB OS
                 </h1>
-                ${!hasSeenInstallGuide ? `
                 <button onclick="showInstallGuide()" class="text-slate-500 hover:text-brand-600 transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                     </svg>
                 </button>
-                ` : ''}
             </div>
         </header>
+        ` : ''}
 
         <!-- Content -->
         <div class="px-4 py-4 space-y-6" id="mobile-content">
