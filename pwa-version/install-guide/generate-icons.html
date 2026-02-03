@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIB OS - 图标生成工具</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen p-4">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-8">TIB OS PWA 图标生成工具</h1>
+    
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+      <h2 class="text-xl font-bold mb-4">使用说明</h2>
+      <div class="space-y-3 text-sm">
+        <p>这个页面提供了一个简单的 SVG 图标预览。您需要：</p>
+        <ol class="list-decimal list-inside space-y-2 ml-4">
+          <li>截取下方的图标（192x192 或 512x512）</li>
+          <li>或者访问 <a href="https://realfavicongenerator.net/" target="_blank" class="text-blue-600 underline">RealFaviconGenerator</a> 生成专业图标</li>
+          <li>将生成的图标文件替换到 <code class="bg-gray-100 px-2 py-1 rounded">pwa-version/assets/icons/</code> 目录</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- 192x192 Icon -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-lg font-bold mb-4">192x192 图标</h3>
+        <div class="flex justify-center mb-4">
+          <svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="192" height="192" rx="38" fill="#fffdf5"/>
+            <!-- Border -->
+            <rect x="8" y="8" width="176" height="176" rx="34" fill="none" stroke="#db7c00" stroke-width="8"/>
+            <!-- Logo -->
+            <text x="96" y="115" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#db7c00" text-anchor="middle">TIB</text>
+            <text x="96" y="150" font-family="Arial, sans-serif" font-size="14" fill="#2d2d2d" text-anchor="middle">投资系统</text>
+          </svg>
+        </div>
+        <p class="text-sm text-gray-600 text-center">截取这个 SVG 为 192x192 PNG</p>
+      </div>
+
+      <!-- 512x512 Icon -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-lg font-bold mb-4">512x512 图标</h3>
+        <div class="flex justify-center mb-4">
+          <svg width="192" height="192" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="512" height="512" rx="102" fill="#fffdf5"/>
+            <!-- Border -->
+            <rect x="20" y="20" width="472" height="472" rx="90" fill="none" stroke="#db7c00" stroke-width="20"/>
+            <!-- Logo -->
+            <text x="256" y="305" font-family="Arial, sans-serif" font-size="128" font-weight="bold" fill="#db7c00" text-anchor="middle">TIB</text>
+            <text x="256" y="400" font-family="Arial, sans-serif" font-size="38" fill="#2d2d2d" text-anchor="middle">投资系统</text>
+          </svg>
+        </div>
+        <p class="text-sm text-gray-600 text-center">截取这个 SVG 为 512x512 PNG</p>
+      </div>
+    </div>
+
+    <!-- Alternative Designs -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mt-8">
+      <h2 class="text-xl font-bold mb-4">其他设计选项</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- Design 1: Chart -->
+        <div class="border-2 border-gray-200 rounded-lg p-4 text-center">
+          <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+            <rect width="96" height="96" rx="19" fill="#fffdf5"/>
+            <rect x="4" y="4" width="88" height="88" rx="17" fill="none" stroke="#db7c00" stroke-width="4"/>
+            <path d="M 20 70 L 35 55 L 50 60 L 65 40 L 76 30" stroke="#db7c00" stroke-width="4" fill="none" stroke-linecap="round"/>
+          </svg>
+          <p class="text-xs mt-2">图表风格</p>
+        </div>
+
+        <!-- Design 2: Letter T -->
+        <div class="border-2 border-gray-200 rounded-lg p-4 text-center">
+          <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+            <rect width="96" height="96" rx="19" fill="#fffdf5"/>
+            <rect x="4" y="4" width="88" height="88" rx="17" fill="none" stroke="#db7c00" stroke-width="4"/>
+            <text x="48" y="70" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#db7c00" text-anchor="middle">T</text>
+          </svg>
+          <p class="text-xs mt-2">字母 T</p>
+        </div>
+
+        <!-- Design 3: Briefcase -->
+        <div class="border-2 border-gray-200 rounded-lg p-4 text-center">
+          <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+            <rect width="96" height="96" rx="19" fill="#fffdf5"/>
+            <rect x="4" y="4" width="88" height="88" rx="17" fill="none" stroke="#db7c00" stroke-width="4"/>
+            <rect x="28" y="38" width="40" height="30" rx="4" stroke="#db7c00" stroke-width="4" fill="none"/>
+            <path d="M 38 38 L 38 30 L 58 30 L 58 38" stroke="#db7c00" stroke-width="4" fill="none"/>
+          </svg>
+          <p class="text-xs mt-2">公文包</p>
+        </div>
+
+        <!-- Design 4: Simple Border -->
+        <div class="border-2 border-gray-200 rounded-lg p-4 text-center">
+          <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+            <rect width="96" height="96" rx="19" fill="#db7c00"/>
+            <text x="48" y="68" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#fffdf5" text-anchor="middle">TIB</text>
+          </svg>
+          <p class="text-xs mt-2">纯色背景</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mt-8">
+      <h2 class="text-xl font-bold mb-4">如何生成 PNG 图标</h2>
+      <div class="space-y-3 text-sm">
+        <p><strong>方法 1：在线生成器（推荐）</strong></p>
+        <ol class="list-decimal list-inside space-y-2 ml-4">
+          <li>访问 <a href="https://realfavicongenerator.net/" target="_blank" class="text-blue-600 underline">RealFaviconGenerator</a></li>
+          <li>上传一张方形图片（建议 SVG 或高分辨率 PNG）</li>
+          <li>下载生成的图标包</li>
+          <li>提取 icon-192.png 和 icon-512.png</li>
+          <li>替换到 <code class="bg-gray-100 px-2 py-1 rounded">pwa-version/assets/icons/</code> 目录</li>
+        </ol>
+
+        <p class="mt-4"><strong>方法 2：手动截取</strong></p>
+        <ol class="list-decimal list-inside space-y-2 ml-4">
+          <li>使用浏览器的截图工具截取上方的 SVG</li>
+          <li>使用图片编辑工具（如 Preview, Photoshop）裁剪为 192x192 和 512x512</li>
+          <li>保存为 PNG 格式</li>
+          <li>替换到图标目录</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="text-center mt-8 text-sm text-gray-600">
+      <p>图标准备好后，返回主页面继续开发</p>
+    </div>
+  </div>
+</body>
+</html>
