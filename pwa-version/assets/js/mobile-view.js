@@ -139,6 +139,8 @@ function renderMobileHome() {
             </div>
         </div>
     `;
+    
+    updateActiveNav();
 }
 
 // 渲染推荐部分
@@ -224,6 +226,8 @@ function renderAllPrompts() {
             ${Object.entries(PROMPT_GROUPS).map(([key, group]) => renderPromptGroup(key, group)).join('')}
         </div>
     `;
+    
+    updateActiveNav();
 }
 
 // 渲染 Prompt 分组
@@ -334,13 +338,13 @@ function setupBottomNavigation() {
                 </svg>
                 <span class="text-xs font-bold">全部</span>
             </button>
-            <button 
-                onclick="showProfile()" 
+            <button
+                onclick="showProfile()"
                 class="flex-1 flex flex-col items-center gap-1 py-1 text-slate-600 hover:text-brand-600 transition"
                 id="nav-profile"
             >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 0118 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/>
                 </svg>
                 <span class="text-xs font-bold">我的</span>
             </button>
@@ -359,7 +363,22 @@ function updateActiveNav() {
         btn.classList.add('text-slate-600');
     });
     
-    const activeBtn = document.getElementById(`nav-${view === 'home' ? 'home' : 'all'}`);
+    let activeBtnId;
+    switch(view) {
+        case 'home':
+            activeBtnId = 'nav-home';
+            break;
+        case 'all-prompts':
+            activeBtnId = 'nav-all';
+            break;
+        case 'profile':
+            activeBtnId = 'nav-profile';
+            break;
+        default:
+            activeBtnId = 'nav-home';
+    }
+    
+    const activeBtn = document.getElementById(activeBtnId);
     if (activeBtn) {
         activeBtn.classList.remove('text-slate-600');
         activeBtn.classList.add('text-brand-600');
