@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TIB OS - AI 投资系统</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="独立科技投资者的 AI 投资决策辅助系统">
+    <meta name="theme-color" content="#db7c00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="TIB OS">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+    <link rel="icon" type="image/png" href="/assets/icons/icon-512.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#fffdf5',
+                        ink: '#2d2d2d',
+                        brand: { DEFAULT: '#db7c00', 50: '#fff8f0', 100: '#ffecd6', 600: '#db7c00', 700: '#b86800' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .tpe-app {
+            background-color: #fffdf5;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .tpe-sketchy-border {
+            border: 2px solid #2d2d2d;
+            border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+        }
+
+        .tpe-btn-sketchy {
+            border: 2px solid #2d2d2d;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.8);
+            transition: all 0.1s ease-in-out;
+        }
+
+        .tpe-btn-sketchy:hover {
+            box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+            transform: translate(1px, 2px);
+        }
+
+        .tpe-btn-sketchy.active {
+            background-color: #db7c00;
+            color: white;
+        }
+
+        .tpe-btn-child {
+            border: 2px solid transparent;
+            border-bottom: 2px dashed #e2e8f0;
+            transition: all 0.1s;
+            border-radius: 3px;
+            color: #64748b;
+        }
+
+        .tpe-btn-child:hover {
+            background-color: #f8fafc;
+            color: #db7c00;
+        }
+
+        .tpe-btn-child.active {
+            background-color: #fff8f0;
+            color: #db7c00;
+            font-weight: bold;
+            border: 2px solid #db7c00;
+            border-radius: 8px;
+        }
+
+        .tpe-card-sketchy {
+            border: 2px solid #2d2d2d;
+            border-radius: 5px;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .tpe-card-sketchy:hover {
+            transform: rotate(-1deg) scale(1.02);
+            box-shadow: 6px 6px 0px #db7c00;
+            z-index: 10;
+        }
+
+        .tpe-input-sketchy {
+            border: 2px solid #cbd5e1;
+            border-radius: 8px 2px 6px 3px;
+            background-color: #fff;
+        }
+
+        .tpe-input-sketchy:focus {
+            border-color: #db7c00;
+            outline: none;
+            box-shadow: 2px 2px 0px #db7c00;
+        }
+
+        .tpe-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tpe-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .tpe-modal-bg {
+            background-color: rgba(45, 45, 45, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            .tpe-app {
+                padding: 0;
+                margin: 0;
+                box-shadow: none;
+            }
+            
+            #tpe-nav, #tpe-grid {
+                display: none;
+            }
+        }
+
+        /* 桌面端保持原有样式 */
+        @media (min-width: 769px) {
+            #mobile-app-container {
+                display: none;
+            }
+            
+            #mobile-bottom-nav {
+                display: none;
+            }
+        }
+
+        /* 隐藏 PWA 安装后的 URL 栏 */
+        @media (display-mode: standalone) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+    <div
+        class="tpe-app w-full max-w-6xl mx-auto tpe-sketchy-border p-1 my-2 md:my-8 flex flex-col min-h-[700px] text-ink shadow-[5px_5px_0px_rgba(0,0,0,0.2)]">
+        
+        <!-- Header -->
+        <div
+            class="px-4 py-4 md:px-6 md:py-6 border-b-2 border-dashed border-slate-300 md:flex justify-between items-start bg-paper relative overflow-hidden">
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="text-xs font-black bg-black text-white px-2 py-0.5 transform -rotate-2">OPEN SOURCE
+                        LOGIC</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-ink">勇麦的 AI 投资系统</h2>
+                </div>
+                <div class="text-slate-600 text-sm md:text-base space-y-1 font-medium leading-relaxed">
+                    <p>投资不应该是玄学，而是一个工程问题。</p>
+                    <p>我已将核心 <strong class="text-brand-600 bg-brand-50 px-1">Prompt 指令集</strong> 与 <strong
+                            class="text-brand-600 bg-brand-50 px-1">知识库架构</strong> 完全开源。</p>
+                    <p>你可以免费复制这套"外骨骼"，在混乱的市场中建立秩序。</p>
+                </div>
+            </div>
+            <div
+                class="mt-4 md:mt-0 md:text-right hidden md:block opacity-20 transform rotate-3 select-none pointer-events-none">
+                <span class="text-6xl">🧬</span>
+            </div>
+        </div>
+
+        <!-- Pro Workbench Header -->
+        <div
+            class="px-6 py-4 border-b-2 border-dashed border-slate-300 flex justify-between items-center bg-slate-50 relative z-20">
+            <div>
+                <h2 class="text-xl font-black text-ink flex items-center gap-2">
+                    投研中的常用提示词/Prompt
+                    <span
+                        class="text-sm bg-brand-600 text-white px-2 py-0.5 rounded-full border-2 border-black rotate-2 shadow-[1px_1px_0px_black] text-xs">Pro</span>
+                </h2>
+                <p class="text-slate-500 mt-1 text-xs md:text-sm">✨ Prompt工作台：选择指令，输入相应信息、复制后唤醒你的 AI 分析师。</p>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex flex-col md:flex-row flex-1 overflow-hidden bg-white/50">
+            <!-- Desktop Navigation -->
+            <div class="w-full md:w-64 border-b-2 md:border-b-0 md:border-r-2 border-slate-200 border-dashed flex-shrink-0 flex md:flex-col p-4 gap-2 overflow-x-auto md:overflow-y-auto tpe-scrollbar"
+                id="tpe-nav"></div>
+            
+            <!-- Desktop Grid -->
+            <div class="flex-1 bg-paper p-3 md:p-5 overflow-y-auto tpe-scrollbar relative">
+                <div id="tpe-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-20"></div>
+
+                <!-- Footer -->
+                <div
+                    class="mt-10 pt-6 border-t-2 border-slate-100 border-dashed text-center text-xs text-slate-400 pb-2">
+                    <p class="mb-1">本项目仅开源投资逻辑，不构成投资建议。市场有风险，投资需谨慎。<br>此项目旨在交流投资思维，仅限个人使用，禁止转售或其他商业使用。</p>
+                    <p>作者抖音@勇麦</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Modal -->
+    <div id="tpe-modal" class="fixed inset-0 z-[9999] hidden tpe-modal-bg flex items-center justify-center p-2 md:p-6">
+        <div
+            class="bg-paper rounded-lg border-4 border-ink shadow-[8px_8px_0px_black] w-full max-w-6xl h-[80vh] flex flex-col overflow-hidden relative">
+            <div
+                class="px-6 py-4 border-b-2 border-ink border-dashed flex justify-between items-center bg-brand-50 flex-shrink-0">
+                <h3 class="font-bold text-xl text-ink flex items-center gap-2 truncate pr-10" id="tpe-modal-title"></h3>
+                <button id="tpe-modal-close"
+                    class="text-ink hover:text-brand-600 border-2 border-ink rounded-full w-8 h-8 flex items-center justify-center hover:bg-white shadow-[2px_2px_0px_black]">✕</button>
+            </div>
+            <div class="flex-1 overflow-y-auto md:overflow-hidden flex flex-col md:flex-row">
+                <div
+                    class="w-full md:w-80 bg-slate-50 p-6 border-b-2 md:border-b-0 md:border-r-2 border-slate-200 border-dashed flex-shrink-0 md:overflow-y-auto tpe-scrollbar">
+                    <h4 class="text-sm font-black text-slate-500 uppercase mb-5">✏️ 变量配置</h4>
+                    <div id="tpe-modal-inputs" class="space-y-5"></div>
+                </div>
+                <div
+                    class="flex-shrink-0 md:flex-1 p-6 flex flex-col bg-paper md:overflow-hidden min-h-[60vh] md:min-h-0">
+                    <div class="flex-1 flex flex-col mb-4">
+                        <div class="flex justify-between items-end mb-2 flex-wrap gap-2">
+                            <h4 class="text-sm font-black text-slate-600 uppercase">📝 预览与编辑</h4>
+                            <div class="flex items-center gap-2">
+                                <select id="tpe-version-select" class="text-xs tpe-input-sketchy px-2 py-1 bg-white">
+                                    <option value="default">默认版本</option>
+                                </select>
+                                <span
+                                    class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 border border-yellow-300 rounded">可手动修改</span>
+                            </div>
+                        </div>
+                        <textarea id="tpe-modal-editor"
+                            class="flex-1 w-full bg-white tpe-input-sketchy p-5 text-sm text-ink leading-relaxed tpe-scrollbar"
+                            spellcheck="false"></textarea>
+                    </div>
+                    <div
+                        class="flex-shrink-0 flex flex-wrap justify-between items-center gap-2 pt-2 border-t-2 border-slate-100 border-dashed">
+                        <div class="flex gap-2">
+                            <button id="tpe-save-version-btn"
+                                class="bg-slate-100 text-slate-700 font-bold py-2 px-4 text-xs tpe-btn-sketchy">💾
+                                保存版本</button>
+                            <button id="tpe-reset-btn"
+                                class="bg-slate-100 text-slate-700 font-bold py-2 px-4 text-xs tpe-btn-sketchy">🔄
+                                重置默认</button>
+                            <button id="tpe-delete-version-btn"
+                                class="bg-red-50 text-red-600 font-bold py-2 px-4 text-xs tpe-btn-sketchy hidden">🗑️
+                                删除版本</button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="tpe-copy-feedback" class="text-sm font-bold text-green-600 opacity-0"></span>
+                            <button id="tpe-copy-btn"
+                                class="bg-brand-600 text-white font-bold py-3 px-8 text-lg tpe-btn-sketchy">📋 复制
+                                Prompt</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Scripts -->
+    <script src="/assets/data/prompts.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/desktop-view.js"></script>
+    <script src="/assets/js/mobile-view.js"></script>
+</body>
+
+</html>
